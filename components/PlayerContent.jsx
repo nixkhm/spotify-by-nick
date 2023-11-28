@@ -1,24 +1,29 @@
 'use client'
 
-const useSound = require('use-sound')
+/*
+TDOO: Find alternative to use-sound, deprecated use without types
+      11/28/23: Converting to JSX
+*/
+
+import useSound from 'use-sound' // No TypeScript Types for use-sound
 import { useEffect, useState } from 'react'
 import { BsPauseFill, BsPlayFill } from 'react-icons/bs'
 import { HiSpeakerWave, HiSpeakerXMark } from 'react-icons/hi2'
 import { AiFillStepBackward, AiFillStepForward } from 'react-icons/ai'
 
-import { Song } from '@/types'
+// import { Song } from '@/types'
 import usePlayer from '@/hooks/usePlayer'
 
 import LikeButton from './LikeButton'
 import MediaItem from './MediaItem'
 import Slider from './Slider'
 
-interface PlayerContentProps {
-  song: Song
-  songUrl: string
-}
+// interface PlayerContentProps {
+//   song: Song
+//   songUrl: string
+// }
 
-const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
+const PlayerContent = ({ song, songUrl }) => {
   const player = usePlayer()
 
   const [volume, setVolume] = useState(1)

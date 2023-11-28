@@ -10,7 +10,7 @@ import { HiHome } from 'react-icons/hi'
 import { BiSearch } from 'react-icons/bi'
 import { FaGithub } from 'react-icons/fa'
 import { twMerge } from 'tailwind-merge'
-import { usePathname } from 'next/navigation'
+import { redirect, usePathname } from 'next/navigation'
 
 import SidebarItem from './SidebarItem'
 import Box from './Box'
@@ -19,8 +19,6 @@ import Library from './Library'
 import { Song } from '@/types'
 import { AiFillHeart } from 'react-icons/ai'
 import usePlayer from '@/hooks/usePlayer'
-import sidebar_logo from '../public/images/sidebar_logo.png'
-import Image from 'next/image'
 
 interface SidebarProps {
   songs: Song[]
@@ -54,8 +52,9 @@ const Sidebar = ({ children, songs }: SidebarProps) => {
       {
         icon: FaGithub,
         label: 'GitHub',
-        href: '/',
-        active: pathname === '/github',
+        href: 'https://github.com/nixkhm/spotify-by-nick',
+        active: false,
+        external: true,
       },
     ],
     [pathname],
@@ -85,7 +84,11 @@ const Sidebar = ({ children, songs }: SidebarProps) => {
         <Box>
           <div className="flex flex-col gap-y-4 px-5 py-4">
             {routes.map((item) => (
-              <SidebarItem key={item.label} {...item} />
+              <SidebarItem
+                key={item.label}
+                {...item}
+                redirect={item.external}
+              />
             ))}
           </div>
         </Box>

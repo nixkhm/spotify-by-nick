@@ -13,6 +13,7 @@ interface SidebarItemProps {
   label: string
   active?: boolean
   href: string
+  redirect?: boolean
 }
 
 const SidebarItem: React.FC<SidebarItemProps> = ({
@@ -20,9 +21,11 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   label,
   active,
   href,
+  redirect,
 }) => {
   return (
     <Link
+      target={redirect ? '_blank' : '_self'}
       href={href}
       className={twMerge(
         `
