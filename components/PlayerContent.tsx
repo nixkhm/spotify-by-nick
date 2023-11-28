@@ -1,6 +1,6 @@
 'use client'
 
-import useSound from 'use-sound'
+const useSound = require('use-sound')
 import { useEffect, useState } from 'react'
 import { BsPauseFill, BsPlayFill } from 'react-icons/bs'
 import { HiSpeakerWave, HiSpeakerXMark } from 'react-icons/hi2'
