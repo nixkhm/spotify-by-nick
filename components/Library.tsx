@@ -70,11 +70,11 @@ const Library: React.FC<LibraryProps> = ({ songs }) => {
       px-3"
       >
         {songs.map((song) => (
-          //Image, Title and Artist
           <MediaItem
             onClick={(id: string) => onPlay(id)}
             key={song.id}
             data={song}
+            showDelete
           />
         ))}
       </div>

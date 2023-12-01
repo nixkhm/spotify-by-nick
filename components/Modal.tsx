@@ -1,16 +1,18 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { IoMdClose } from 'react-icons/io'
 import Image from 'next/image'
+import { Song } from '@/types'
 
 interface ModalProps {
   isOpen: boolean
-  onChange: (open: boolean) => void
+  onChange?: (open: boolean) => void
   title: string
   description: string
   children: React.ReactNode
   image?: any //fix to make type for image
   hasImage?: boolean
   cannotClose?: boolean
+  song?: Song
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -22,6 +24,7 @@ const Modal: React.FC<ModalProps> = ({
   image,
   hasImage,
   cannotClose,
+  song,
 }) => {
   return (
     <Dialog.Root open={isOpen} defaultOpen={isOpen} onOpenChange={onChange}>
@@ -81,7 +84,7 @@ const Modal: React.FC<ModalProps> = ({
             {description}
           </Dialog.Description>
           <div>{children}</div>
-          {!cannotClose ?? (
+          {cannotClose && (
             <Dialog.Close asChild>
               <button
                 className="
