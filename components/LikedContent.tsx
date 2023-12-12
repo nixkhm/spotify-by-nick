@@ -1,12 +1,13 @@
 'use client'
 
-import { useUser } from '@/hooks/useUser'
+import { useUser, useUserDetails } from '@/hooks/useUser'
 import { Song } from '@/types'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import MediaItem from './MediaItem'
 import LikeButton from './LikeButton'
 import useOnPlay from '@/hooks/useOnPlay'
+import useAuthModal from '@/hooks/useAuthModal'
 
 interface LikedContentProps {
   songs: Song[]
@@ -16,9 +17,11 @@ const LikedContent: React.FC<LikedContentProps> = ({ songs }) => {
   const router = useRouter()
   const { isLoading, user } = useUser()
   const onPlay = useOnPlay(songs)
+  const authModal = useAuthModal()
 
   useEffect(() => {
     if (!isLoading && !user) {
+      authModal.onOpen()
       router.replace('/')
     }
   }, [isLoading, user, router])

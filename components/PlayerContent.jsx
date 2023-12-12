@@ -32,6 +32,8 @@ const PlayerContent = ({ song, songUrl }) => {
   const Icon = isPlaying ? BsPauseFill : BsPlayFill
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave
 
+  const [currentTime, setCurrentTime] = useState(0)
+
   const onPlayNext = () => {
     if (player.ids.length === 0) {
       return
@@ -64,7 +66,7 @@ const PlayerContent = ({ song, songUrl }) => {
 
   const [play, { pause, sound }] = useSound(songUrl, {
     volume: volume,
-    onplay: () => setIsPlaying(true),
+    onplay: () => {setIsPlaying(true) ;setCurrentTime(sound.position)},
     onend: () => {
       setIsPlaying(false)
       onPlayNext()
@@ -75,11 +77,20 @@ const PlayerContent = ({ song, songUrl }) => {
 
   useEffect(() => {
     sound?.play()
+    // setCurrentTime(sound?.curentTime())
 
     return () => {
       sound?.unload()
     }
   }, [sound])
+
+    const [seekTime, setSeekTime] = useState([]);
+
+
+  // useEffect(() => {
+  //   if(sound)
+  //   console.log(sound?.curentTime(song));
+  // },[seekTime, sound])
 
   const handlePlay = () => {
     if (!isPlaying) {
@@ -96,6 +107,27 @@ const PlayerContent = ({ song, songUrl }) => {
       setVolume(0)
     }
   }
+
+  // const onSeek = async (time) => {
+  //   sound.seek(time)
+  // };
+
+  // useEffect(() => {
+  //   if(sound && seekTime) sound.seek(seekTime)
+  // }, [seekTime, sound])
+  
+const handleSeek = (time) => {
+  setSeekTime(time[0]); // Update the state with the new seek time
+  sound?.seek(time[0]); // Seek to the desired time
+};
+
+  useEffect(() => {
+    if(seekTime) console.log(seekTime[0])//sound?.seek(seekTime[0]);
+    // if(sound) {
+    //   sound.seek(200)
+    //   console.log(sound.duration())}
+
+  }, [seekTime])
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 h-full">
@@ -181,6 +213,13 @@ const PlayerContent = ({ song, songUrl }) => {
               hover:text-white 
               transition
             "
+        />
+        <p>{currentTime}</p>
+        <Slider
+          value={seekTime}
+          max={sound?.duration() || 200}
+          onChange={(value) => setSeekTime([value])}
+          // onChange={handleSeek}
         />
       </div>
 

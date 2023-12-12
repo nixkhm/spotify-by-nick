@@ -11,6 +11,7 @@ import { ThemeSupa } from '@supabase/auth-ui-shared'
 import useAuthModal from '@/hooks/useAuthModal'
 import { useEffect } from 'react'
 import modal_logo from '../public/images/modal_logo.png'
+import Button from './Button'
 
 /*
   Component Name: AuthModal
@@ -74,6 +75,9 @@ const AuthModal = () => {
           },
         }}
       />
+      <div className="p-3 mb-5">
+        <Button onClick={() => onClose()}>Close & Browse Music</Button>
+      </div>
     </Modal>
   )
 }
