@@ -32,7 +32,6 @@ const PlayerContent = ({ song, songUrl }) => {
   const Icon = isPlaying ? BsPauseFill : BsPlayFill
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave
 
-  const [currentTime, setCurrentTime] = useState(0)
 
   const onPlayNext = () => {
     if (player.ids.length === 0) {
@@ -66,7 +65,7 @@ const PlayerContent = ({ song, songUrl }) => {
 
   const [play, { pause, sound }] = useSound(songUrl, {
     volume: volume,
-    onplay: () => {setIsPlaying(true) ;setCurrentTime(sound.position)},
+    onplay: () => {setIsPlaying(true)},
     onend: () => {
       setIsPlaying(false)
       onPlayNext()
@@ -214,13 +213,13 @@ const handleSeek = (time) => {
               transition
             "
         />
-        <p>{currentTime}</p>
-        <Slider
+        {/* <p>{currentTime}</p> */}
+        {/* <Slider
           value={seekTime}
           max={sound?.duration() || 200}
           onChange={(value) => setSeekTime([value])}
           // onChange={handleSeek}
-        />
+        /> */}
       </div>
 
       <div className="hidden md:flex w-full justify-end pr-2">
